@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏃‍♂️🚴‍♀️ MOLOCO CARDIO RACE 🏆 - 기록 제출</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+        
+        input[type="text"], input[type="number"], select, input[type="file"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        input[type="text"]:focus, input[type="number"]:focus, select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .record-group {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .record-item {
+            text-align: center;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        
+        .record-item label {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 5px;
+        }
+        
+        .record-item input {
+            margin-bottom: 0;
+        }
+        
+        .unit {
+            font-size: 12px;
+            color: #999;
+            margin-top: 5px;
+        }
+        
+        button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+        }
+        
+        button:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: bold;
+        }
+        
+        .success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .rankings {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        
+        .rankings h3 {
+            margin-bottom: 15px;
+            color: #333;
+        }
+        
+        .ranking-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            margin-bottom: 5px;
+            background: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .rank {
+            font-weight: bold;
+            color: #667eea;
+            font-size: 18px;
+        }
+        
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .nav-button {
+            flex: 1;
+            padding: 10px;
+            background: #6c757d;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        .nav-button.active {
+            background: #667eea;
+        }
+        
+        .section {
+            display: none;
+        }
+        
+        .section.active {
+            display: block;
+        }
+        
+        .first-place-info, .random-record-info {
+            background: linear-gradient(135deg, #ffd700, #ffed4a);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            color: #333;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .first-place-info {
+            background: linear-gradient(135deg, #ffd700, #ffb347);
+            border: 2px solid #ff6b35;
+        }
+        
+        /* 여성 1등 기록용 핑크 테마 */
+        #femaleFirstPlaceInfo {
+            background: linear-gradient(135deg, #ff6b9d, #ffa8cc);
+            border: 2px solid #ff4081;
+        }
+        
+        /* 팡파레 애니메이션 효과 */
+        .fanfare {
+            position: relative;
+            overflow: hidden;
+            animation: celebration 2s ease-in-out;
+        }
+        
+        .fanfare::before {
+            content: '🎉✨🎊';
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 24px;
+            animation: confetti 3s ease-out;
+            z-index: 10;
+        }
+        
+        .fanfare::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle, rgba(255, 215, 0, 0.3) 0%, transparent 70%);
+            animation: glow 2s ease-in-out;
+            pointer-events: none;
+        }
+        
+        @keyframes celebration {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); box-shadow: 0 0 30px rgba(255, 215, 0, 0.8); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes confetti {
+            0% { 
+                opacity: 0; 
+                transform: translateX(-50%) translateY(0px) scale(0);
+            }
+            20% { 
+                opacity: 1; 
+                transform: translateX(-50%) translateY(-20px) scale(1);
+            }
+            100% { 
+                opacity: 0; 
+                transform: translateX(-50%) translateY(-50px) scale(1.5);
+            }
+        }
+        
+        @keyframes glow {
+            0% { opacity: 0; }
+            50% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+        
+        /* 반짝이는 텍스트 효과 */
+        .sparkle {
+            animation: sparkle 1.5s ease-in-out infinite;
+        }
+        
+        @keyframes sparkle {
+            0%, 100% { text-shadow: 0 0 5px #ffd700; }
+            50% { text-shadow: 0 0 20px #ffd700, 0 0 30px #ffed4a; }
+        }
+        
+        /* 펄스 효과 */
+        .pulse {
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+        
+        .record-highlight {
+            font-size: 24px;
+            margin: 10px 0;
+        }
+        
+        .record-details {
+            font-size: 14px;
+            opacity: 0.8;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🏃‍♂️🚴‍♀️ MOLOCO CARDIO RACE 🏆💪</h1>
+        
+        <div class="nav-buttons">
+            <button class="nav-button active" onclick="showSection('submit')">기록 제출</button>
+            <button class="nav-button" onclick="showSection('rankings')">랭킹 조회</button>
+        </div>
+        
+        <!-- 기록 제출 섹션 -->
+        <div id="submit" class="section active">
+            <form id="recordForm" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="name">성명</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="gender">성별</label>
+                    <select id="gender" name="gender" required>
+                        <option value="">선택하세요</option>
+                        <option value="male">남성</option>
+                        <option value="female">여성</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>운동 기록 (미터)</label>
+                    <div class="record-group">
+                        <div class="record-item">
+                            <label for="bike">🚴‍♂️ 바이크</label>
+                            <input type="number" id="bike" name="bike" step="0.1" min="0" required>
+                            <div class="unit">미터</div>
+                        </div>
+                        <div class="record-item">
+                            <label for="treadmill">🏃‍♂️ 트레드밀</label>
+                            <input type="number" id="treadmill" name="treadmill" step="0.1" min="0" required>
+                            <div class="unit">미터</div>
+                        </div>
+                        <div class="record-item">
+                            <label for="rowing">🚣‍♂️ 로잉</label>
+                            <input type="number" id="rowing" name="rowing" step="0.1" min="0" required>
+                            <div class="unit">미터</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="photo">증빙 사진 (필수)</label>
+                    <input type="file" id="photo" name="photo" accept="image/*" required>
+                </div>
+                
+                <button type="submit" id="submitBtn">기록 제출하기</button>
+            </form>
+            
+            <div id="result"></div>
+        </div>
+        
+        <!-- 랭킹 조회 섹션 -->
+        <div id="rankings" class="section">
+            <!-- 남성 랭킹 -->
+            <div class="rankings">
+                <h3>🏆 남성 랭킹</h3>
+                <div id="maleRankingList">
+                    <p>로딩 중...</p>
+                </div>
+            </div>
+            
+            <!-- 여성 랭킹 -->
+            <div class="rankings">
+                <h3>🏆 여성 랭킹</h3>
+                <div id="femaleRankingList">
+                    <p>로딩 중...</p>
+                </div>
+            </div>
+            
+            <!-- 남성 1등 기록 섹션 -->
+            <div class="rankings" id="maleFirstPlaceSection" style="display: none;">
+                <h3>👑 남성 1등 기록</h3>
+                <div id="maleFirstPlaceInfo" class="first-place-info">
+                </div>
+            </div>
+            
+            <!-- 여성 1등 기록 섹션 -->
+            <div class="rankings" id="femaleFirstPlaceSection" style="display: none;">
+                <h3>👑 여성 1등 기록</h3>
+                <div id="femaleFirstPlaceInfo" class="first-place-info">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = `http://${window.location.hostname}:${window.location.port}/api`;
+        
+        // 섹션 전환
+        function showSection(sectionName) {
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.querySelectorAll('.nav-button').forEach(button => {
+                button.classList.remove('active');
+            });
+            
+            document.getElementById(sectionName).classList.add('active');
+            event.target.classList.add('active');
+            
+            if (sectionName === 'rankings') {
+                loadRankings();
+            }
+        }
+        
+        // 기록 제출 폼 처리
+        document.getElementById('recordForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const submitBtn = document.getElementById('submitBtn');
+            const resultDiv = document.getElementById('result');
+            
+            submitBtn.disabled = true;
+            submitBtn.textContent = '제출 중...';
+            resultDiv.innerHTML = '';
+            
+            try {
+                const formData = new FormData(e.target);
+                
+                const response = await fetch(`${API_BASE}/submit-record`, {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    resultDiv.innerHTML = `
+                        <div class="result success">
+                            🎉 기록이 성공적으로 제출되었습니다!<br>
+                            ${result.data.gender} 랭킹: <strong>${result.data.rank}위</strong> / ${result.data.genderParticipants}명<br>
+                            전체 참가자: ${result.data.totalParticipants}명
+                        </div>
+                    `;
+                    e.target.reset();
+                } else {
+                    resultDiv.innerHTML = `
+                        <div class="result error">
+                            ❌ ${result.message}
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <div class="result error">
+                        ❌ 서버 연결에 실패했습니다.
+                    </div>
+                `;
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = '기록 제출하기';
+            }
+        });
+        
+        // 랭킹 조회
+        async function loadRankings() {
+            const maleRankingList = document.getElementById('maleRankingList');
+            const femaleRankingList = document.getElementById('femaleRankingList');
+            const maleFirstPlaceSection = document.getElementById('maleFirstPlaceSection');
+            const femaleFirstPlaceSection = document.getElementById('femaleFirstPlaceSection');
+            const maleFirstPlaceInfo = document.getElementById('maleFirstPlaceInfo');
+            const femaleFirstPlaceInfo = document.getElementById('femaleFirstPlaceInfo');
+            
+            maleRankingList.innerHTML = '<p>로딩 중...</p>';
+            femaleRankingList.innerHTML = '<p>로딩 중...</p>';
+            maleFirstPlaceSection.style.display = 'none';
+            femaleFirstPlaceSection.style.display = 'none';
+            
+            try {
+                const response = await fetch(`${API_BASE}/rankings`);
+                const result = await response.json();
+                
+                if (result.success) {
+                    const { maleRankings, femaleRankings, maleFirstPlace, femaleFirstPlace } = result.data;
+                    
+                    // 남성 랭킹 표시
+                    if (maleRankings.length === 0) {
+                        maleRankingList.innerHTML = '<p>아직 남성 참가자가 없습니다.</p>';
+                    } else {
+                        let maleHtml = '';
+                        maleRankings.forEach(record => {
+                            const rankEmoji = record.rank === 1 ? '🥇' : record.rank === 2 ? '🥈' : record.rank === 3 ? '🥉' : '';
+                            maleHtml += `
+                                <div class="ranking-item">
+                                    <div>
+                                        <span class="rank">${rankEmoji}${record.rank}위</span>
+                                        <span>${record.name}</span>
+                                    </div>
+                                    <div>
+                                        <small>🚴‍♂️${record.bike}m 🏃‍♂️${record.treadmill}m 🚣‍♂️${record.rowing}m</small>
+                                    </div>
+                                </div>
+                            `;
+                        });
+                        maleRankingList.innerHTML = maleHtml;
+                    }
+                    
+                    // 여성 랭킹 표시
+                    if (femaleRankings.length === 0) {
+                        femaleRankingList.innerHTML = '<p>아직 여성 참가자가 없습니다.</p>';
+                    } else {
+                        let femaleHtml = '';
+                        femaleRankings.forEach(record => {
+                            const rankEmoji = record.rank === 1 ? '🥇' : record.rank === 2 ? '🥈' : record.rank === 3 ? '🥉' : '';
+                            femaleHtml += `
+                                <div class="ranking-item">
+                                    <div>
+                                        <span class="rank">${rankEmoji}${record.rank}위</span>
+                                        <span>${record.name}</span>
+                                    </div>
+                                    <div>
+                                        <small>🚴‍♂️${record.bike}m 🏃‍♂️${record.treadmill}m 🚣‍♂️${record.rowing}m</small>
+                                    </div>
+                                </div>
+                            `;
+                        });
+                        femaleRankingList.innerHTML = femaleHtml;
+                    }
+                    
+                    // 남성 1등 기록 표시
+                    if (maleFirstPlace) {
+                        maleFirstPlaceInfo.innerHTML = `
+                            <div class="record-highlight sparkle">
+                                🏆 ${maleFirstPlace.name}
+                            </div>
+                            <div class="record-details">
+                                🚴‍♂️ 바이크: ${maleFirstPlace.bike}m | 🏃‍♂️ 트레드밀: ${maleFirstPlace.treadmill}m | 🚣‍♂️ 로잉: ${maleFirstPlace.rowing}m
+                            </div>
+                            <div class="record-highlight sparkle">
+                                총 거리: ${maleFirstPlace.totalDistance}m
+                            </div>
+                            <div class="record-details">
+                                제출일: ${maleFirstPlace.submittedAt}
+                            </div>
+                        `;
+                        
+                        // 팡파레 애니메이션 효과 적용
+                        maleFirstPlaceInfo.classList.add('fanfare', 'pulse');
+                        maleFirstPlaceSection.style.display = 'block';
+                        
+                        // 3초 후 애니메이션 제거
+                        setTimeout(() => {
+                            maleFirstPlaceInfo.classList.remove('fanfare');
+                        }, 3000);
+                    }
+                    
+                    // 여성 1등 기록 표시
+                    if (femaleFirstPlace) {
+                        femaleFirstPlaceInfo.innerHTML = `
+                            <div class="record-highlight sparkle">
+                                🏆 ${femaleFirstPlace.name}
+                            </div>
+                            <div class="record-details">
+                                🚴‍♂️ 바이크: ${femaleFirstPlace.bike}m | 🏃‍♂️ 트레드밀: ${femaleFirstPlace.treadmill}m | 🚣‍♂️ 로잉: ${femaleFirstPlace.rowing}m
+                            </div>
+                            <div class="record-highlight sparkle">
+                                총 거리: ${femaleFirstPlace.totalDistance}m
+                            </div>
+                            <div class="record-details">
+                                제출일: ${femaleFirstPlace.submittedAt}
+                            </div>
+                        `;
+                        
+                        // 팡파레 애니메이션 효과 적용
+                        femaleFirstPlaceInfo.classList.add('fanfare', 'pulse');
+                        femaleFirstPlaceSection.style.display = 'block';
+                        
+                        // 3초 후 애니메이션 제거
+                        setTimeout(() => {
+                            femaleFirstPlaceInfo.classList.remove('fanfare');
+                        }, 3000);
+                    }
+                    
+                } else {
+                    maleRankingList.innerHTML = '<p>랭킹을 불러오는데 실패했습니다.</p>';
+                    femaleRankingList.innerHTML = '<p>랭킹을 불러오는데 실패했습니다.</p>';
+                }
+            } catch (error) {
+                maleRankingList.innerHTML = '<p>서버 연결에 실패했습니다.</p>';
+                femaleRankingList.innerHTML = '<p>서버 연결에 실패했습니다.</p>';
+            }
+        }
+        
+        // 페이지 로드 시 랭킹 조회
+        window.addEventListener('load', () => {
+            loadRankings();
+        });
+    </script>
+</body>
+</html>

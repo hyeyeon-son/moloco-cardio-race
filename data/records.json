@@ -1,0 +1,28 @@
+{
+  "records": [
+    {
+      "id": 1,
+      "name": "김로코",
+      "gender": "male",
+      "bike": 1500,
+      "treadmill": 600,
+      "rowing": 600,
+      "totalDistance": 2700,
+      "photoPath": "uploads/1753078091172_p11kvxl3o.JPG",
+      "submittedAt": "2025-07-21T06:08:11.191Z"
+    },
+    {
+      "id": 2,
+      "name": "김로로",
+      "gender": "female",
+      "bike": 1500,
+      "treadmill": 600,
+      "rowing": 600,
+      "totalDistance": 2700,
+      "photoPath": "uploads/1753078109717_eqvvu78y7.JPG",
+      "submittedAt": "2025-07-21T06:08:29.741Z"
+    }
+  ],
+  "nextId": 3,
+  "lastUpdated": "2025-07-21T06:08:29.742Z"
+}
