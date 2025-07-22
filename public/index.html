@@ -390,8 +390,8 @@
     </div>
 
     <script>
-        // 데이터 저장소 (실제 애플리케이션에서는 서버 데이터베이스 사용)
-        let records = JSON.parse(localStorage.getItem('moloco-cardio-records') || '[]');
+        // 데이터 저장소 (브라우저 메모리 사용)
+        let records = [];
 
         // 탭 전환 기능
         function showTab(tabName) {
@@ -444,16 +444,8 @@
                 date: new Date().toISOString()
             };
 
-            // 같은 이름의 기록이 있으면 업데이트, 없으면 추가
-            const existingIndex = records.findIndex(r => r.name === name && r.gender === gender);
-            if (existingIndex !== -1) {
-                records[existingIndex] = record;
-            } else {
-                records.push(record);
-            }
-
-            // 로컬 스토리지에 저장
-            localStorage.setItem('moloco-cardio-records', JSON.stringify(records));
+            // 메모리에 저장 (브라우저가 닫히면 초기화됨)
+            records.push(record);
 
             // 성공 메시지 표시
             document.getElementById('success-message').classList.remove('hidden');
@@ -553,7 +545,6 @@
                 ];
                 
                 records = sampleRecords;
-                localStorage.setItem('moloco-cardio-records', JSON.stringify(records));
             }
         }
 
