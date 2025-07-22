@@ -1,28 +1,84 @@
 {
   "records": [
     {
-      "id": 1,
-      "name": "김로코",
+      "id": 2,
+      "name": "박성찬",
       "gender": "male",
-      "bike": 1500,
-      "treadmill": 600,
-      "rowing": 600,
-      "totalDistance": 2700,
-      "photoPath": "uploads/1753078091172_p11kvxl3o.JPG",
-      "submittedAt": "2025-07-21T06:08:11.191Z"
+      "bike": 1720,
+      "treadmill": 780,
+      "rowing": 656,
+      "totalDistance": 3156,
+      "photoPath": "uploads/1752715009741_25gr1dmna.jpg",
+      "submittedAt": "2025-07-17T01:16:49.777Z"
     },
     {
-      "id": 2,
-      "name": "김로로",
+      "id": 3,
+      "name": "박용규",
+      "gender": "male",
+      "bike": 1640,
+      "treadmill": 610,
+      "rowing": 613,
+      "totalDistance": 2863,
+      "photoPath": "uploads/1752723807363_wt3hp5dkh.jpg",
+      "submittedAt": "2025-07-17T03:43:27.482Z"
+    },
+    {
+      "id": 4,
+      "name": "김로코 1등",
+      "gender": "male",
+      "bike": 5000,
+      "treadmill": 0,
+      "rowing": 0,
+      "totalDistance": 5000,
+      "photoPath": "uploads/1752726405400_rveex9j27.JPG",
+      "submittedAt": "2025-07-17T04:26:45.510Z"
+    },
+    {
+      "id": 5,
+      "name": "구경모",
+      "gender": "male",
+      "bike": 1100,
+      "treadmill": 1130,
+      "rowing": 500,
+      "totalDistance": 2730,
+      "photoPath": "uploads/1752732559698_vocb14exu.png",
+      "submittedAt": "2025-07-17T06:09:19.699Z"
+    },
+    {
+      "id": 6,
+      "name": "최수빈",
+      "gender": "male",
+      "bike": 1670,
+      "treadmill": 300,
+      "rowing": 630,
+      "totalDistance": 2600,
+      "photoPath": "uploads/1753059222435_8jhi2zkh3.jpg",
+      "submittedAt": "2025-07-21T00:53:42.488Z"
+    },
+    {
+      "id": 7,
+      "name": "손혜연",
       "gender": "female",
-      "bike": 1500,
-      "treadmill": 600,
-      "rowing": 600,
-      "totalDistance": 2700,
-      "photoPath": "uploads/1753078109717_eqvvu78y7.JPG",
-      "submittedAt": "2025-07-21T06:08:29.741Z"
+      "bike": 2642,
+      "treadmill": 0,
+      "rowing": 0,
+      "totalDistance": 2642,
+      "photoPath": "uploads/1753089403106_kjeb9e46c.png",
+      "submittedAt": "2025-07-21T09:16:43.135Z"
+    },
+    
+    {
+      "id": 9,
+      "name": "이루미",
+      "gender": "female",
+      "bike": 1360,
+      "treadmill": 500,
+      "rowing": 555,
+      "totalDistance": 2415,
+      "photoPath": "uploads/1753148023399_l3yeirwkd.jpeg",
+      "submittedAt": "2025-07-22T01:33:43.409Z"
     }
   ],
-  "nextId": 3,
-  "lastUpdated": "2025-07-21T06:08:29.742Z"
+  "nextId": 10,
+  "lastUpdated": "2025-07-22T01:33:43.410Z"
 }
